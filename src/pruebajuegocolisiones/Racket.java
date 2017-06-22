@@ -3,6 +3,7 @@ package pruebajuegocolisiones;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
+import java.awt.geom.Line2D;
 
 public class Racket {
 	static final int WIDTH = 60;
@@ -11,8 +12,8 @@ public class Racket {
 	int yp1, yp2;
 	private final int INFERIOR, SUPERIOR;
 	private Game game;
-	private static final int mov = 2;
-	private static Boolean accIzq = false, accDer = false;
+	private static final int mov = 4;
+	private static boolean accIzq = false, accDer = false;
 
 	public Racket(int xp1, int yp1, int xp2, int yp2, Game game) {
 		this.xp1 = xp1;
@@ -65,8 +66,8 @@ public class Racket {
 	}
 
 	// tiene que ser Line
-	public Rectangle getBounds() {
-		return new Rectangle(x, Y, WIDTH, HEIGHT);
+	public Line2D getBounds(){
+		return new Line2D.Float(xp1, yp1, xp2, yp2);
 	}
 
 	// tonteria

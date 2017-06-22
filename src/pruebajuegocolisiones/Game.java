@@ -12,8 +12,10 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class Game extends JPanel {
 
-	Ball ball = new Ball(this);
+	Ball ball;
+	Ball estorbo1, estorbo2, estorbo3;
 	Racket racketIzq, racketDer;
+	int puntuacion;
 
 	public Game() {
 		addKeyListener(new KeyListener() {
@@ -32,16 +34,24 @@ public class Game extends JPanel {
 			}
 		});
 		
-		racketIzq = new Racket(0, 400, 135, 450, this);
-		racketDer = new Racket(320, 400, 185, 450, this);
+		racketIzq = new Racket(0, 400, 115, 450, this);
+		racketDer = new Racket(320, 400, 205, 450, this);
+		ball = new Ball(this);
+		estorbo1 = new Ball(this);
+		estorbo2 = new Ball(this);
+		estorbo3 = new Ball(this);
+		
+		estorbo1.setXY(90, 150, 30);
+		estorbo2.setXY(150, 300, 40);
+		estorbo3.setXY(200, 90, 35);
+		
+		puntuacion = 0;
 		
 		setFocusable(true);
 	}
 	
 	private void move() {
-		
-		
-	//	ball.move(col);
+		ball.move();
 		racketIzq.moveIzq();
 		racketDer.moveDer();
 	}
@@ -52,9 +62,15 @@ public class Game extends JPanel {
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
-	//	ball.paint(g2d);
+		ball.paint(g2d);
 		racketIzq.paint(g2d);
 		racketDer.paint(g2d);
+		
+		estorbo1.paint(g2d);
+		estorbo2.paint(g2d);
+		estorbo3.paint(g2d);
+		
+		g.drawString("Puntuación: " + puntuacion, 100, 15);
 	}
 	
 	public void gameOver() {
