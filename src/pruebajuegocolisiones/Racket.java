@@ -1,13 +1,10 @@
 package pruebajuegocolisiones;
 
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Line2D;
 
 public class Racket {
-	static final int WIDTH = 60;
-	static final int HEIGHT = 10;
 	int xp1, xp2;
 	int yp1, yp2;
 	private final int INFERIOR, SUPERIOR;
@@ -49,7 +46,6 @@ public class Racket {
 	}
 
 	public void paint(Graphics2D g) {
-	//	g.fillRect(x, Y, WIDTH, HEIGHT);
 		g.drawLine(xp1, yp1, xp2, yp2);
 	}
 
@@ -65,14 +61,7 @@ public class Racket {
 			accDer = true;
 	}
 
-	// tiene que ser Line
 	public Line2D getBounds(){
 		return new Line2D.Float(xp1, yp1, xp2, yp2);
 	}
-
-	// tonteria
-	public int getTopY() {
-		return (yp1 > yp2) ? yp2 : yp1;
-	}
-
 }

@@ -18,6 +18,8 @@ public class Ball {
 
 	public Ball(Game game) {
 		this.game= game;
+		
+		// Se asigna una posicion inicial aleatoria
 		this.x = (int) (Math.random() * 330);
 	}
 	
@@ -27,6 +29,9 @@ public class Ball {
 		this.diameter = dm;
 	}
 
+	/*
+	*	Movimiento de la bola
+	*/
 	void move() {
 		if (x + xa < 0){
 			xa = mov;
@@ -44,10 +49,10 @@ public class Ball {
 			game.gameOver();
 			game.puntuacion++;
 		}
-		if (collisionPalas()){
+		if (colisionPalas()){
 			ya = -mov;
 		}
-		else if(collisionEstorbos()){
+		else if(colisionEstorbos()){
 			game.puntuacion+=2;
 		}
 		
@@ -55,13 +60,16 @@ public class Ball {
 		y = y + ya;
 	}
 
-	private boolean collisionPalas() {
+	/*
+	*	Devuelve True si colisiona con las palas.
+	*/
+	private boolean colisionPalas() {
 		return game.racketIzq.getBounds().intersects(getBounds())
 				|| game.racketDer.getBounds().intersects(getBounds());
 	}
 	
-	private boolean collisionEstorbos(){
-		/*
+	private boolean colisionEstorbos(){
+		/* Intento fallido :(
 		boolean estorbo1 = distanciaPuntos(game.estorbo1.x, game.estorbo1.y, game.estorbo1.diameter);
 		boolean estorbo2 = distanciaPuntos(game.estorbo2.x, game.estorbo2.y, game.estorbo2.diameter);
 		boolean estorbo3 = distanciaPuntos(game.estorbo3.x, game.estorbo3.y, game.estorbo3.diameter);
@@ -80,15 +88,16 @@ public class Ball {
 			return true;
 		}
 		return false;
-		/*
-		return game.estorbo1.getBounds().intersects(getBounds())
-				|| game.estorbo2.getBounds().intersects(getBounds())
-				|| game.estorbo3.getBounds().intersects(getBounds());
-		*/
 	}
 	
 	
-	
+	/*
+	*	Asigna una velocidad, dependiendo de la posicion donde se haya chocado 
+	*	con los estorbos. Si se choca mas de dos veces en un mismo angulo
+	*	del mismo estorbo, se mueve aleatoriamente en otra direccion
+	*	sin que esa direccion sea acercarse al estorbo con el que se ha
+	*	chocado.
+	*/
 	private void asignarVelocidad(Ball b, int[] contadores){
 		if(this.x <= b.x && this.y <= b.y){
 			xa = -mov;
@@ -140,6 +149,8 @@ public class Ball {
 	*	Colisiona si la distancia entre dos puntos es igual o menor que di+this.diametro
 	*	True -> si colisiona
 	*	False -> si no colisiona
+	*
+	*	Intento fallido
 	*/
 	private boolean distanciaPuntos(int x, int y, int di){
 		double distancia =  Math.sqrt((x-this.x)*(x-this.x) + (y-this.y)*(y-this.y));

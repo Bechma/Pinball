@@ -12,9 +12,16 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class Game extends JPanel {
 
+	// Pelota del pinball
 	Ball ball;
+	
+	// Bolas para que rebote la pelota
 	Ball estorbo1, estorbo2, estorbo3;
+	
+	// Palas del pinball
 	Racket racketIzq, racketDer;
+	
+	//Puntuacion
 	int puntuacion;
 
 	public Game() {
